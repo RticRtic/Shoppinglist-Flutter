@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoppinglist_provider/providers/streambuilders/streambuilder_categorie_items.dart';
+import 'package:shoppinglist_provider/widgets/modalbottomsheet.dart';
 
 class ItemsInCategorieScreen extends StatefulWidget {
   final String categorie;
@@ -62,6 +63,10 @@ class _ItemsInCategorieScreenState extends State<ItemsInCategorieScreen> {
             categorieDoc: widget.categorie,
             showUpdateItemForm: widget.backToShoppingListCategorie,
           )),
+      floatingActionButton: ModalBottomSheet(
+        index: widget.index,
+        categorieTitle: widget.categorie,
+      ),
     );
   }
 }

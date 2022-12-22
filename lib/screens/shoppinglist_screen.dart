@@ -9,11 +9,13 @@ class ShoppingListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: const [
+        actions: [
           SizedBox(
-            width: 40.0,
-            child: Icon(Icons.shopping_cart),
-          )
+              width: 40.0,
+              child: GestureDetector(
+                onTap: () {},
+                child: const Icon(Icons.shopping_cart),
+              ))
         ],
         title: const Text("Shoppinglist"),
         centerTitle: true,
@@ -41,7 +43,6 @@ class ShoppingListScreen extends StatelessWidget {
         ),
         child: const CategorieGridTile(),
       ),
-      floatingActionButton: const ModalBottomSheet(),
     );
   }
 }
