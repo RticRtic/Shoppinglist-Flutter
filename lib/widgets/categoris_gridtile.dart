@@ -6,7 +6,7 @@ import 'package:shoppinglist_provider/screens/items_in_categorie_screen.dart';
 import 'package:shoppinglist_provider/widgets/modalbottonsheet_categories.dart';
 
 class CategorieGridTile extends StatefulWidget {
-  const CategorieGridTile({super.key});
+  CategorieGridTile({super.key});
 
   @override
   State<CategorieGridTile> createState() => _CategorieGridTileState();

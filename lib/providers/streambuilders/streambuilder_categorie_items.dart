@@ -21,7 +21,6 @@ class CategorieStreamBuilderItems extends StatefulWidget {
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 final firebseProvider = FirebaseProvider();
-
 List<TextEditingController> itemControllerList = [];
 late AnimationController localAnimationController;
 
@@ -107,7 +106,8 @@ class _CategorieStreamBuilderItemsState
                                                   ? firebseProvider.upDateItem(
                                                       widget.categorieDoc,
                                                       itemName.get("itemName"),
-                                                      controller.text)
+                                                      controller.text,
+                                                    )
                                                   : null;
                                               setState(() {
                                                 snackbar.topSnackBarSuccess(

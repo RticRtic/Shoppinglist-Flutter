@@ -1,15 +1,29 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shoppinglist_provider/firebase/firebase.dart';
+import 'package:shoppinglist_provider/models/shopping_item.dart';
 import 'package:shoppinglist_provider/utils/snackbar.dart';
 
-class ModalBottomSheet extends StatelessWidget {
-  const ModalBottomSheet({super.key});
+class ModalBottomSheet extends StatefulWidget {
+  int index;
+  String categorieTitle;
+  ModalBottomSheet(
+      {super.key, required this.index, required this.categorieTitle});
 
+  @override
+  State<ModalBottomSheet> createState() => _ModalBottomSheetState();
+}
+
+class _ModalBottomSheetState extends State<ModalBottomSheet>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final firebaseProvider = FirebaseProvider();
     final itemName = TextEditingController();
     final snackbar = SnackbarUtil();
+    late AnimationController localAnimationController = AnimationController(
+        vsync: this, duration: const Duration(microseconds: 900));
+
     return FloatingActionButton(
       backgroundColor: Colors.grey,
       onPressed: () {
@@ -34,9 +48,10 @@ class ModalBottomSheet extends StatelessWidget {
                             child: TextField(
                               controller: itemName,
                               autofocus: true,
-                              decoration: const InputDecoration(
-                                  hintText: 'Add To Shoppingcart',
-                                  focusedBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                  hintText:
+                                      "Add to ${widget.categorieTitle}-list",
+                                  focusedBorder: const UnderlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.black))),
                             ),
@@ -44,7 +59,17 @@ class ModalBottomSheet extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               if (itemName.text.isEmpty) {
-                                snackbar.snackbar(context, "Please Enter Text");
+                                snackbar.topSnackBarError(
+                                    Overlay.of(context),
+                                    "Please enter item",
+                                    localAnimationController);
+                              } else {
+                                firebaseProvider.addItem(
+                                    ShoppingItem(name: itemName.text),
+                                    itemName.text,
+                                    widget.categorieTitle,
+                                    context,
+                                    localAnimationController);
                               }
                             },
                             style: ButtonStyle(
